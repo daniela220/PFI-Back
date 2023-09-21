@@ -1,19 +1,18 @@
 from ..database import DatabaseConnection
 
+
 class Usuario:
-    def __init__(self, id_usuario, nombre_usuario, contrasenia, imagen = None):
+    def __init__(self, id_usuario, nombre_usuario, contrasenia, imagen=None):
         self.id_usuario = id_usuario
         self.nombre_usuario = nombre_usuario
         self.contrasenia = contrasenia
         self.imagen = imagen
 
-   
     @classmethod
     def crear_usuario(cls, usuario):
-        query = """INSERT INTO usuarios (id_usuario, nombre_usuario, contrasenia, imagen) VALUES (%(id_usuario)s, %(nombre_usuario)s, %(contrasenia)s, %(imagen)s)"""
+        query = """INSERT INTO usuarios (id_usuario, nombre_usuario, contrasenia) VALUES (%(id_usuario)s, %(nombre_usuario)s, %(contrasenia)s"""
         params = usuario.__dict__
         DatabaseConnection.execute_query(query, params)
-
 
     @classmethod
     def obtener_por_id(cls, id_usuario):
@@ -27,17 +26,29 @@ class Usuario:
 
     @classmethod
     def obtener_todos(cls):
-        query = """SELECT id_usuario, nombre_usuario, contrasenia, imagen FROM usuarios"""
+        query = (
+            """SELECT id_usuario, nombre_usuario, contrasenia, imagen FROM usuarios"""
+        )
         results = DatabaseConnection.fetch_all(query)
         usuarios = []
         for row in results:
-            usuarios.append(cls(*row)) 
+            usuarios.append(cls(*row))
         return usuarios
 
-    def actualizar_usuario(self):
-        pass
+    @classmethod
+    def actualizar_usuario(cls, usuario):
+        query = "UPDATE tif_db.usuarios SET"
+        usuario_datos = usuario.__dict__
+        usuario_update = []
+        for key in usuario_datos.keys():
+            if usuario_datos[key] is not None and key != "id_usuario":
+                usuario_update.append(f"{key} = %({key})s")
+        query += ", ".join(usuario_update)
+        query += "WHERE user_id = %(id_usuario)s"
+        DatabaseConnection.execute_query(query, usuario_datos)
 
-    def borrar_usuario(self):
-        pass
-
-    
+    @classmethod
+    def borrar_usuario(cls, usuario):
+        query = "DELETE FROM tif_db.usuarios WHERE id_usuario = %(id_usuario)s"
+        params = usuario.__dict__
+        DatabaseConnection.execute_query(query, params)
