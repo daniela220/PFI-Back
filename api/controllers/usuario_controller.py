@@ -12,8 +12,11 @@ class UsuarioController:
     @classmethod
     def get_usuario(cls, id_usuario):
         usuario = Usuario.obtener_por_id(id_usuario)
-        if usuario:
-            usuario.serialize(), 200
+        print(id_usuario, "Hola este es el comentario -------------------------------------------")
+        # if usuario:
+        #     usuario.serialize(), 200
+        return usuario.serialize(), 200
+
 
     @classmethod
     def crear(cls):
@@ -32,7 +35,7 @@ class UsuarioController:
 
     @classmethod
     def get_servidores(cls):
-        pass
+         return jsonify({"message": "Usuario creado exitosamente"}), 201
     
         
 
