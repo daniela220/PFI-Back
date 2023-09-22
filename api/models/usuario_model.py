@@ -2,11 +2,22 @@ from ..database import DatabaseConnection
 
 
 class Usuario:
+    #(variable) _keys: list [str]
+    _keys= ["id_usuario","nombre_usuario","contrasenia"]
+
     def __init__(self, id_usuario, nombre_usuario, contrasenia, imagen=None):
         self.id_usuario = id_usuario
         self.nombre_usuario = nombre_usuario
         self.contrasenia = contrasenia
         self.imagen = imagen
+
+    
+    def serialize(self):
+        return {
+            "id_usuario": self.id_usuario,
+            "nombre_usuario": self.nombre_usuario,
+            "contrasenia": self.contrasenia
+        }
 
     @classmethod
     def crear_usuario(cls, usuario):
