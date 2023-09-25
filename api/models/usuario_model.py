@@ -21,7 +21,7 @@ class Usuario:
 
     @classmethod
     def crear_usuario(cls, usuario):
-        query = """INSERT INTO usuarios (usuario_id, nombre_usuario, contrasenia) VALUES (%(usuario_id)s, %(nombre_usuario)s, %(contrasenia)s"""
+        query = """INSERT INTO usuarios (nombre_usuario, contrasenia) VALUES (%(nombre_usuario)s, %(contrasenia)s"""
         params = usuario.__dict__
         DatabaseConnection.execute_query(query, params)
 

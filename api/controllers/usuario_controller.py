@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from models.usuario_model import Usuario
+from ..models.usuario_model import Usuario
 
 class UsuarioController:
     @classmethod
@@ -23,16 +23,23 @@ class UsuarioController:
         return jsonify({"message": "Usuario creado exitosamente"}), 201
         
     @classmethod
-    def update(cls):
-        pass
+    def update(cls, usuario_id):
+        try:
+            data = request.json
+            usuario_actualizado = Usuario(usuario_id, **data)
+            Usuario.actualizar_usuario(usuario_actualizado)
+            return jsonify({"message": "Usuario actualizado exitosamente"}), 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500    
 
     @classmethod
-    def delete(cls):
-        pass
-
-    @classmethod
-    def get_servidores(cls):
-        pass
-    
+    def delete(cls, usuario_id):
+        usuario = Usuario.obtener_por_id(usuario_id)
+        
+        if usuario:
+            Usuario.borrar_usuario(usuario)
+            return jsonify({"message": "Usuario eliminado exitosamente"}), 200
+        else:
+            return jsonify({"message": "Usuario no encontrado"}), 404
         
 
