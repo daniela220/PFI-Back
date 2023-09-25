@@ -11,7 +11,7 @@ class DatabaseConnection:
                 user='root',
                 port = "3306",
                 password='0483194',
-                database='tif_bd'
+                database='tif_db'
             )
         return cls._connection
 
