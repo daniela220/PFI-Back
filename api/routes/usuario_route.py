@@ -6,7 +6,6 @@ bp_usuarios = Blueprint("users",__name__)
 def set_json_content_type():
     print('works')
     if request.method == "POST" and request.headers["Content-Type"] != "application/json":
-        print('if', request.content_type) 
         return jsonify({"error": "Unsupported Media Type"}), 415
     
 bp_usuarios.route("/", methods = ["GET"])(UsuarioController.get_usuarios)

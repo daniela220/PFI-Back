@@ -21,7 +21,6 @@ class UsuarioController:
         data = request.json
         nuevo_user_id = str(uuid.uuid4())
         data["usuario_id"] = nuevo_user_id
-        print(data["usuario_id"])
         nuevo_usuario = Usuario(**data)
         Usuario.crear_usuario(nuevo_usuario)
         return jsonify({"message": "Usuario creado exitosamente"}), 201
