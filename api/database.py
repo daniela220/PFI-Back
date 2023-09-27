@@ -10,7 +10,7 @@ class DatabaseConnection:
                 host='127.0.0.1',
                 user='root',
                 port = "3306",
-                password='0483194',
+                password='German530060+',
                 database='tif_db'
             )
         return cls._connection
