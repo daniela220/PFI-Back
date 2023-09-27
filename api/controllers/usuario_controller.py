@@ -1,5 +1,6 @@
 from flask import request, jsonify
-from ..models.usuario_model import Usuario
+from api.models.usuario_model import Usuario
+import uuid
 
 class UsuarioController:
     @classmethod
@@ -21,6 +22,8 @@ class UsuarioController:
     @classmethod
     def crear(cls):
         data = request.json
+        nuevo_user_id = str(uuid.uuid4())
+        data["usuario_id"] = nuevo_user_id
         nuevo_usuario = Usuario(**data)
         Usuario.crear_usuario(nuevo_usuario)
         return jsonify({"message": "Usuario creado exitosamente"}), 201
@@ -37,5 +40,8 @@ class UsuarioController:
     def get_servidores(cls):
          return jsonify({"message": "Usuario creado exitosamente"}), 201
     
-        
-
+    @classmethod
+    def get_next_user_id(cls):
+        # Incrementa el último user_id y lo devuelve como un número entero
+        cls.last_user_id += 1
+        return cls.last_user_id

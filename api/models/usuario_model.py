@@ -16,12 +16,13 @@ class Usuario:
         return {
             "usuario_id": self.usuario_id,
             "nombre_usuario": self.nombre_usuario,
-            "contrasenia": self.contrasenia
+            "contrasenia": self.contrasenia,
+            "imagen": self.imagen
         }
 
     @classmethod
     def crear_usuario(cls, usuario):
-        query = """INSERT INTO usuarios (usuario_id, nombre_usuario, contrasenia) VALUES (%(usuario_id)s, %(nombre_usuario)s, %(contrasenia)s"""
+        query = """INSERT INTO usuarios (nombre_usuario, contrasenia, imagen) VALUES (%(nombre_usuario)s, %(contrasenia)s, %(imagen)s)"""
         params = usuario.__dict__
         DatabaseConnection.execute_query(query, params)
 
