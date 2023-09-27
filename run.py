@@ -4,7 +4,8 @@ from flask_cors import CORS
 
 
 app = init_app()
-cors = CORS(app, resources={r"/*":{"origins": "http://127.0.0.1:5500"}})
+
+cors = CORS(app, supports_credentials=True, resources={r"/*":{"origins": "http://127.0.0.1:5500"}})
 
 if __name__ == "__main__":
     app.run(debug=True)

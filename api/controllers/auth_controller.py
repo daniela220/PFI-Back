@@ -1,5 +1,4 @@
 from ..models.auth.user_model import User
-
 from flask import request, session
 
 class UserController:
@@ -8,12 +7,13 @@ class UserController:
     def login(cls):
         data = request.json
         user = User(
-            username = data.get('username'),
-            password = data.get('password')
-        )
-        
+            nombre_usuario = data.get('nombre_usuario'),
+            contrasenia = data.get('contrasenia')
+        )        
+        print("Datos de inicio de sesion", data)
         if User.is_registered(user):
-            session['username'] = data.get('username')
+            session['username'] = data.get('nombre_usuario')
+            print("Sesión iniciada para:", session.get('username'))
             return {"message": "Sesion iniciada"}, 200
         else:
             return {"message": "Usuario o contraseña incorrectos"}, 401
@@ -41,11 +41,13 @@ class UserController:
 
     @classmethod
     def show_profile(cls):
+        # username = session.get('nombre_usuario')
         username = session.get('username')
-        user = User.get(User(username = username))
-        if user is None:
+        print("Usuario en sesion:", session)
+        if username is None:
             return {"message": "Usuario no encontrado"}, 404
         else:
+            user = User.get(User(nombre_usuario = username))
             return user.serialize(), 200
     
     @classmethod
