@@ -14,7 +14,7 @@ class UserRoleModel:
     
     @classmethod
     def get(cls, role):
-        query = """SELECT role_id, role_name FROM authentication_db.user_roles WHERE role_id = %(role_id)s"""
+        query = """SELECT role_id, role_name FROM tif_db.user_roles WHERE role_id = %(role_id)s"""
         params = role.__dict__
         result = DatabaseConnection.fetch_one(query, params=params)
 

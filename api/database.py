@@ -24,6 +24,7 @@ class DatabaseConnection:
 
     @classmethod
     def fetch_one(cls, query, params=None):
+        print("------------------------- fetch one", query, params)
         cursor = cls.get_connection().cursor()
         cursor.execute(query, params)
         return cursor.fetchone()

@@ -22,11 +22,19 @@ class UsuarioController:
     @classmethod
     def crear(cls):
         data = request.json
+        
+        if "nombre_usuario" not in data or "contrasenia" not in data:
+            return jsonify({"message:" "Faltan usuario o contraseña"}), 400
+        
         nuevo_user_id = str(uuid.uuid4())
         data["usuario_id"] = nuevo_user_id
+        print(data)
         nuevo_usuario = Usuario(**data)
-        Usuario.crear_usuario(nuevo_usuario)
-        return jsonify({"message": "Usuario creado exitosamente"}), 201
+        try:
+            Usuario.crear_usuario(nuevo_usuario)
+            return jsonify({"message": "Usuario creado exitosamente"}), 201
+        except Exception:
+            return jsonify({"message:" "Error al crear el usuario"}), 500
         
     @classmethod
     def update(cls):
