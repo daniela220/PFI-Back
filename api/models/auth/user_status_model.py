@@ -14,7 +14,7 @@ class UserStatusModel:
 
     @classmethod
     def get(cls, status):
-        query = """SELECT status_id, status_name FROM authentication_db.user_status WHERE status_id = %(status_id)s"""
+        query = """SELECT status_id, status_name FROM tif_db.user_status WHERE status_id = %(status_id)s"""
         params = status.__dict__
         result = DatabaseConnection.fetch_one(query, params=params)
 

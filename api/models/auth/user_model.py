@@ -17,8 +17,9 @@ class User:
             "usuario_id": self.usuario_id,
             "nombre_usuario": self.nombre_usuario,
             "contrasenia": self.contrasenia,
-            "status": UserStatusModel.get(UserStatusModel(status_id = self.status_id)).serialize(),
-            "role": UserRoleModel.get(UserRoleModel(role_id = self.role_id)).serialize()
+            "imagen": self.imagen,
+            "status": UserStatusModel.get(UserStatusModel(status_id = self.status_id)),
+            "role": UserRoleModel.get(UserRoleModel(role_id = self.role_id))
         }
 
     @classmethod
@@ -42,14 +43,8 @@ class User:
                 usuario_id = result[0],
                 nombre_usuario = result[1],
                 contrasenia = result[2],
-                email = result[3],
-                first_name = result[4],
-                last_name = result[5],
-                date_of_birth = result[6],
-                phone_number = result[7],
-                creation_date = result[8],
-                last_login = result[9],
-                status_id = result[10],
-                role_id = result[11]
+                imagen = result[3],
+                status_id = result[4],
+                role_id = result[5]
             )
         return None
