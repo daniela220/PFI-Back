@@ -5,17 +5,17 @@ class Usuario:
     #(variable) _keys: list [str]
     _keys= ["usuario_id","nombre_usuario","contrasenia"]
 
-    """def __init__(self, usuario_id, nombre_usuario, contrasenia, imagen=None):
+    def __init__(self, usuario_id, nombre_usuario, contrasenia, imagen=None):
         self.usuario_id = usuario_id
         self.nombre_usuario = nombre_usuario
         self.contrasenia = contrasenia
-        self.imagen = imagen"""
+        self.imagen = imagen
 
-    def __init__(self, **kwargs):
+    """def __init__(self, **kwargs):
         self.usuario_id = kwargs.get("usuario_id")
         self.nombre_usuario = kwargs.get("nombre_usuario")
         self.contrasenia = kwargs.get("contrasenia")
-        self.imagen = kwargs.get("imagen")
+        self.imagen = kwargs.get("imagen")"""
     
     def serialize(self):
         return {
@@ -26,7 +26,7 @@ class Usuario:
 
     @classmethod
     def crear_usuario(cls, usuario):
-        query = """INSERT INTO usuarios (nombre_usuario, contrasenia) VALUES (%(nombre_usuario)s, %(contrasenia)s"""
+        query = """INSERT INTO usuarios (nombre_usuario, contrasenia) VALUES (%(nombre_usuario)s, %(contrasenia)s)"""
         params = usuario.__dict__
         DatabaseConnection.execute_query(query, params)
 
@@ -55,12 +55,12 @@ class Usuario:
     def actualizar_usuario(cls, usuario):
         query = "UPDATE tif_db.usuarios SET"
         usuario_datos = usuario.__dict__
-        usuario_update = []
+        usuario_updates = []
         for key in usuario_datos.keys():
             if usuario_datos[key] is not None and key != "usuario_id":
-                usuario_update.append(f"{key} = %({key})s")
-        query += ", ".join(usuario_update)
-        query += "WHERE user_id = %(usuario_id)s"
+                usuario_updates.append(f"{key} = %({key})s")
+        query += ", ".join(usuario_updates)
+        query += " WHERE usuario_id = %(usuario_id)s"
         DatabaseConnection.execute_query(query, usuario_datos)
 
     @classmethod

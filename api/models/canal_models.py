@@ -18,12 +18,15 @@ class Canal:
 
     @classmethod 
     def crear_canal(cls, canal):
+        """Crea un nuevo canal en la base de datos utilizando los datos proporcionados en el objeto canal."""
+
         query = """INSERT INTO canales (nombre_canal, descripcion, servidor_id) VALUES (%(nombre_canal)s,%(descripcion)s, %(servidor_id)s)"""
         params = canal.__dict__
         DatabaseConnection.execute_query(query, params)
 
     @classmethod
     def obtener_todos(cls):
+        """Obtiene todos los canales almacenados en la base de datos y los devuelve como una lista de objetos Canal"""
         query ="""SELECT * FROM canales"""
         results = DatabaseConnection.fetch_all(query)
         servidores = []

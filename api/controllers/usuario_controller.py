@@ -4,6 +4,7 @@ from ..models.usuario_models import Usuario
 class UsuarioController:
     @classmethod
     def get_usuarios(cls):
+        """Obtiene todos los usuarios y los devuelve en una lista serializada."""
         usuarios = []
         for usuario in Usuario.obtener_todos():
             usuarios.append(usuario.serialize())
@@ -11,14 +12,18 @@ class UsuarioController:
 
     @classmethod
     def get_usuario(cls, id_usuario):
+        """Obtiene un usuario a traves del id_usuario y lo devuelve en una lista serializada."""
         usuario = Usuario.obtener_por_id(id_usuario)
         if usuario:
             usuario.serialize(), 200
 
     @classmethod
     def crear(cls):
+        """Crea un nuevo usuario utilizando los datos proporcionados en la solicitud JSON."""
+
         data = request.json
         nuevo_usuario = Usuario(
+            usuario_id=data.get("usuario_id"),
             nombre_usuario=data.get("nombre_usuario"),
             contrasenia = data.get("contrasenia")
             )
@@ -27,6 +32,7 @@ class UsuarioController:
         
     @classmethod
     def update(cls, usuario_id):
+        """Actualiza un usuario existente con los datos proporcionados en la solicitud JSON."""
         try:
             data = request.json
             usuario_actualizado = Usuario(usuario_id, **data)
@@ -37,6 +43,7 @@ class UsuarioController:
 
     @classmethod
     def delete(cls, usuario_id):
+        """Elimina un usuario por su ID."""
         usuario = Usuario.obtener_por_id(usuario_id)
         
         if usuario:
@@ -49,6 +56,7 @@ class UsuarioController:
     ######################
     @classmethod
     def get_servidores(cls, usuario_id):
+        """Obtiene los servidores asociados a un usuario y los devuelve como JSON."""
         usuario=Usuario(usuario_id=usuario_id)
         servidores = []
         for servidor in Usuario.get_servidores(usuario_id):

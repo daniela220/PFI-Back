@@ -4,6 +4,7 @@ from ..models.canal_models import Canal
 class CanalController:
     @classmethod
     def crear_canal(cls):
+        """ Crea un nuevo canal utilizando los datos proporcionados en la solicitud JSON"""
         data = request.json
         canal = Canal(**data)
         nombre_canal = data.get('nombre_canal')
@@ -13,6 +14,7 @@ class CanalController:
 
     @classmethod
     def obtener_todos(cls):
+        """Obtiene todos los canales y los serializa en una lista de diccionarios."""
         canales_obj = Canal.obtener_todos()
         canales = []
         for canal in canales_obj:

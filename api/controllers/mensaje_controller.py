@@ -5,7 +5,7 @@ class MensajeController:
 
     @classmethod
     def crear_mensaje(self, canal_id):
-        """Publica un mensaje en el chat"""
+        """Crea y publica un mensaje en el chat del canal especificado."""
         data = request.json
         chat = Mensaje(**data)
 
@@ -16,6 +16,7 @@ class MensajeController:
 
     @classmethod
     def obtener_mensajes_canal(cls, canal_id):
+        """Obtiene todos los mensajes publicados en un canal especificado y los serializa."""
         mensaje_obj = Mensaje.obtener_mensajes_por_canal(canal_id)
         mensajes = []
         for mensaje in mensaje_obj:
@@ -24,6 +25,7 @@ class MensajeController:
 
     @classmethod
     def obtener_mensajes_ordenados(cls):
+        """Obtiene todos los mensajes y los devuelve en orden."""
         mensajes = Mensaje.obtener_mensajes_ordenados()
 
         if not mensajes:
