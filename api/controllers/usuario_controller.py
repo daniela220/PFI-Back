@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from ..models.usuario_model import Usuario
+from ..models.usuario_models import Usuario
 import uuid
 
 class UsuarioController:
