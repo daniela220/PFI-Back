@@ -5,12 +5,17 @@ class Usuario:
     #(variable) _keys: list [str]
     _keys= ["usuario_id","nombre_usuario","contrasenia"]
 
-    def __init__(self, usuario_id, nombre_usuario, contrasenia, imagen=None):
+    """def __init__(self, usuario_id, nombre_usuario, contrasenia, imagen=None):
         self.usuario_id = usuario_id
         self.nombre_usuario = nombre_usuario
         self.contrasenia = contrasenia
-        self.imagen = imagen
+        self.imagen = imagen"""
 
+    def __init__(self, **kwargs):
+        self.usuario_id = kwargs.get("usuario_id")
+        self.nombre_usuario = kwargs.get("nombre_usuario")
+        self.contrasenia = kwargs.get("contrasenia")
+        self.imagen = kwargs.get("imagen")
     
     def serialize(self):
         return {
@@ -63,3 +68,24 @@ class Usuario:
         query = "DELETE FROM tif_db.usuarios WHERE usuario_id = %(usuario_id)s"
         params = usuario.__dict__
         DatabaseConnection.execute_query(query, params)
+
+
+###############################
+    @classmethod
+    def get_servidores(cls, usuario):
+        query = """
+            SELECT nombre_servidor
+            FROM servidores
+            INNER JOIN usuario_servidor ON servidores.servidor_id = usuario_servidor.servidor_id
+            INNER JOIN usuarios ON usuario_servidor.usuario_id = usuarios.usuario_id
+            WHERE usuarios.usuario_id = %(usuario_id)s;
+            """
+        params = Usuario.__dict__
+        results = DatabaseConnection.fetch_all(query, params)
+        
+        servidores = []
+        from .servidor_models import Servidor
+
+        for row in results:
+            servidores.append(Servidor(**dict(zip(Servidor._keys, row))))
+        return servidores

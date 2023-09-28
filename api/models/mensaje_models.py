@@ -1,6 +1,8 @@
 from ..database import DatabaseConnection
 
 class Mensaje:
+    _keys= ["id_mensaje","contenido","fecha_envio","canal_id","usuario_id"]
+
     def __init__(self, id_mensaje, contenido, fecha_envio, id_canal, id_usuario):
         self.id_mensaje = id_mensaje
         self.contenido = contenido
@@ -8,28 +10,39 @@ class Mensaje:
         self.id_canal = id_canal
         self.id_usuario = id_usuario
 
+    def serialize(self):
+        return {
+            "usuario_id": self.usuario_id,
+            "id_mensaje": self.id_mensaje,
+            "contenido": self.contenido,
+            "fecha_envio":self.fecha_envio,
+            "canal_id":self.canal_id,
+            "usuario_id": self.usuario_id
+        }
+
+
     @classmethod
-    def crear_mensaje(cls, contenido, id_usuario, id_canal):
-        query = """INSERT INTO mensajes (contenido, id_usuario, id_canal) VALUES (%(contenido)s, %(id_usuario)s %(id_canal)s)"""
+    def crear_mensaje(cls, contenido, usuario_id, canal_id):
+        query = """INSERT INTO mensajes (contenido, usuario_id, canal_id) VALUES (%(contenido)s, %(usuario_id)s %(canal_id)s)"""
         params = {
             "contenido": contenido,
-            "id_usuario": id_usuario,
-            "id_canal": id_canal
+            "usuario_id": usuario_id,
+            "canal_id": canal_id
         }
         DatabaseConnection.execute_query(query, params)
 
     @classmethod
-    def obtener_mensajes_por_canal(cls, id_canal):
-        query = """SELECT FROM mensajes WHERE id_canal = %(id_canal)s"""
+    def obtener_mensajes_por_canal(cls, canal_id):
+        query = """SELECT * FROM mensajes WHERE canal_id = %(canal_id)s"""
         params = {
-            "id_canal" : id_canal
+            "canal_id" : canal_id
         }
         resultados = DatabaseConnection.fetch_all(query,params)
         mensajes = []
         for resultado in resultados:
             mensaje = cls(**dict(zip(cls._keys, resultado)))
             mensajes.append(mensaje)
-        return mensaje
+        return mensajes
         
     @classmethod
     def editar_mensaje(cls, id_mensaje, nuevo_contenido):
@@ -47,4 +60,19 @@ class Mensaje:
         }
         DatabaseConnection.execute_query(query, params)
 
-    
+
+    @classmethod
+    def obtener_mensajes_ordenados(cls):
+        query = """
+            SELECT id_mensaje, contenido, fecha_envio, canal_id, usuario_id
+            FROM mensajes
+            ORDER BY fecha_envio ASC; """
+        
+        results = DatabaseConnection.fetch_all(query)
+
+        mensajes = []
+        for row in results:
+            mensaje = cls(**dict(zip(cls._keys, row)))
+            mensajes.append(mensaje)
+
+        return mensajes

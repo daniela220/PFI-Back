@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from ..models.usuario_model import Usuario
+from ..models.usuario_models import Usuario
 
 class UsuarioController:
     @classmethod
@@ -18,7 +18,10 @@ class UsuarioController:
     @classmethod
     def crear(cls):
         data = request.json
-        nuevo_usuario = Usuario(**data)
+        nuevo_usuario = Usuario(
+            nombre_usuario=data.get("nombre_usuario"),
+            contrasenia = data.get("contrasenia")
+            )
         Usuario.crear_usuario(nuevo_usuario)
         return jsonify({"message": "Usuario creado exitosamente"}), 201
         
@@ -42,4 +45,15 @@ class UsuarioController:
         else:
             return jsonify({"message": "Usuario no encontrado"}), 404
         
+
+    ######################
+    @classmethod
+    def get_servidores(cls, usuario_id):
+        usuario=Usuario(usuario_id=usuario_id)
+        servidores = []
+        for servidor in Usuario.get_servidores(usuario_id):
+            print(servidor)
+            servidores.append(servidor.serialize())
+        return servidores, 200
+    
 
