@@ -4,11 +4,13 @@ class Servidor:
     _keys= ["servidor_id","nombre_servidor","descripcion","usuario_id"]
 
     def __init__(self, servidor_id, nombre_servidor, descripcion):
+        """Inicializa una instancia de la clase Servidor con los atributos proporcionados."""
         self.servidor_id = servidor_id
         self.nombre_servidor = nombre_servidor
         self.descripcion = descripcion
 
     def serialize(self):
+        """Serializa los datos del servidor en un diccionario."""
         return {
                 "servidor_id": self.servidor_id,
                 "nombre_servidor": self.nombre_servidor,
@@ -18,12 +20,14 @@ class Servidor:
 
     @classmethod
     def crear_servidor(cls, servidor):
+        """Crea un nuevo servidor en la base de datos con los datos proporcionados."""
         query = """INSERT INTO servidores (nombre_servidor, descripcion) VALUES (%(nombre_servidor)s, %(descripcion)s)"""
         params = servidor.__dict__
         DatabaseConnection.execute_query(query,params)
 
     @classmethod
     def obtener_todos(cls):
+        """Obtiene todos los servidores almacenados en la base de datos y los devuelve como una lista de objetos Servidor."""
         query = (
             """SELECT * FROM servidores"""
         )
@@ -35,6 +39,7 @@ class Servidor:
     
     @classmethod
     def obtener_uno(cls, servidor_id):
+        """Obtiene un servidor por su ID y lo devuelve como un objeto Servidor."""
         query = (
             "SELECT * FROM servidores WHERE servidor_id = %(servidor_id)s" 
         )
@@ -48,6 +53,7 @@ class Servidor:
 
     @classmethod
     def borrar_servidor(cls,usuario_id):
+        """Borra un servidor de la base de datos."""
         query = """
             DELETE FROM servidores
             WHERE usuario_id = %(usuario_id)s
@@ -57,6 +63,8 @@ class Servidor:
     
     @classmethod
     def obtener_canales(cls, servidor_id):
+        """Obtiene los canales asociados a un servidor y los devuelve como una lista de diccionarios."""
+
         query = """
                 SELECT canal_id, nombre_canal FROM canales WHERE servidor_id = %(servidor_id)s 
                 """

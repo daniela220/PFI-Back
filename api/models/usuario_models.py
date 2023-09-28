@@ -6,6 +6,7 @@ class Usuario:
     _keys= ["usuario_id","nombre_usuario","contrasenia"]
 
     def __init__(self, usuario_id, nombre_usuario, contrasenia, imagen=None):
+        """Inicializa una instancia de la clase Usuario con los atributos proporcionados."""
         self.usuario_id = usuario_id
         self.nombre_usuario = nombre_usuario
         self.contrasenia = contrasenia
@@ -18,6 +19,7 @@ class Usuario:
         self.imagen = kwargs.get("imagen")"""
     
     def serialize(self):
+        """Serializa los datos del usuario en un diccionario."""
         return {
             "usuario_id": self.usuario_id,
             "nombre_usuario": self.nombre_usuario,
@@ -26,12 +28,14 @@ class Usuario:
 
     @classmethod
     def crear_usuario(cls, usuario):
+        """Crea un nuevo usuario en la base de datos con los datos proporcionados."""
         query = """INSERT INTO usuarios (nombre_usuario, contrasenia) VALUES (%(nombre_usuario)s, %(contrasenia)s)"""
         params = usuario.__dict__
         DatabaseConnection.execute_query(query, params)
 
     @classmethod
     def obtener_por_id(cls, usuario_id):
+        """Obtiene un usuario por su ID de usuario y lo devuelve como un objeto Usuario."""
         query = """SELECT usuario_id, nombre_usuario, contrasenia, imagen FROM usuarios WHERE usuario_id = %(usuario_id)s"""
         params = {"usuario_id": usuario_id}
         result = DatabaseConnection.fetch_one(query, params)
@@ -42,6 +46,7 @@ class Usuario:
 
     @classmethod
     def obtener_todos(cls):
+        """Obtiene todos los usuarios almacenados en la base de datos y los devuelve como una lista de objetos Usuario."""
         query = (
             """SELECT usuario_id, nombre_usuario, contrasenia, imagen FROM usuarios"""
         )
@@ -53,6 +58,7 @@ class Usuario:
 
     @classmethod
     def actualizar_usuario(cls, usuario):
+        """Actualiza los datos de un usuario existente en la base de datos."""
         query = "UPDATE tif_db.usuarios SET"
         usuario_datos = usuario.__dict__
         usuario_updates = []
@@ -65,6 +71,7 @@ class Usuario:
 
     @classmethod
     def borrar_usuario(cls, usuario):
+        """Borra un usuario existente de la base de datos."""
         query = "DELETE FROM tif_db.usuarios WHERE usuario_id = %(usuario_id)s"
         params = usuario.__dict__
         DatabaseConnection.execute_query(query, params)
