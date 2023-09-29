@@ -5,15 +5,14 @@ import uuid
 class UsuarioController:
     @classmethod
     def get_usuarios(cls):
-        usuarios = []
-        for usuario in Usuario.obtener_todos():
-            usuarios.append(usuario.serialize())
+        usuarios = [Usuario.obtener_todos()]
+        # for usuario in Usuario.obtener_todos():
+        #     usuarios.append(usuario.serialize())
         return usuarios, 200
 
     @classmethod
     def get_usuario(cls, id_usuario):
         usuario = Usuario.obtener_por_id(id_usuario)
-        print(id_usuario, "Hola este es el comentario -------------------------------------------")
         # if usuario:
         #     usuario.serialize(), 200
         return usuario.serialize(), 200

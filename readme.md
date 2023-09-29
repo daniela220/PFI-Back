@@ -1,52 +1,33 @@
-# PFI-Front
+# Aplicación Web de Mensajería
+Este repositorio contiene el código fuente de una aplicación web de mensajería similar a Discord.
 
-PFI-Front es una aplicación de chat en línea simple que te permite comunicarte con amigos y colegas de manera fácil y rápida. A diferencia de aplicaciones más complejas como Discord, PFI-Front se centra en la simplicidad y la facilidad de uso.
+### Usos
+Se proporciona una API REST que permite a la interfaz de usuario interactuar con la base de datos y acceder a las funcionalidades de la aplicación. 
+Dentro de las funcionalidades del sistema encontramos:
 
-## Características
+- **Registro e Inicio de Sesión**: Los usuarios pueden registrarse y luego iniciar sesión en la aplicación.
 
-- Creación de salas de chat personalizadas.
-- Envío de mensajes de texto en tiempo real.
-- Perfiles de usuario personalizables.
-- Integración con avatares y emoticones.
-- Notificaciones en tiempo real.
+- **Exploración de Servidores y Canales**: Los usuarios pueden crear o unirse a servidores y crear canales dentro de esos servidores.
 
-## Requisitos
+- **Interacción en Chats**: Los usuarios pueden participar en conversaciones en los canales, enviando y recibiendo mensajes.
 
-- Python 3.6 o superior
-- Biblioteca (especificar las bibliotecas necesarias)
-
-## Instalación
-
-1. Clona este repositorio:
-
-   ```bash
-   git clone https://github.com/Ger678/PFI-Front.git
-   cd PFI-Front
-## Instala las dependencias:
-
-    pip install -r requirements.txt
-
-## Inicia la aplicación:
-
-    python main.py
-
-## Abre tu navegador y accede a http://...COMPLETAR... para empezar a usar PFI-Front.
+- **Perfil de Usuario**: Los usuarios pueden actualizar sus datos personales y su imagen de perfil en su perfil de usuario.
 
 
-# Uso
-Crea una cuenta o inicia sesión.
-Crea una sala de chat o únete a una existente.
-Envía mensajes de texto y disfruta de la comunicación en tiempo real.
-Personaliza tu perfil con avatares y emoticones.
+### Componentes
+La aplicación está diseñada utilizando el framework Flask de Python. Sigue el patrón de diseño Modelo-Vista-Controlador (MVC) y utiliza MySQL como base de datos, debes configurar las credenciales de la base de datos en database.py. A continuación, se describen los principales componentes:
 
+- **Controladores** (Controllers): Los controladores son responsables de manejar las solicitudes HTTP entrantes y coordinar la lógica de la aplicación. Están ubicados en el directorio controllers.
 
-# Licencia
-licencias o carpeta de licencia para consultar
+- **Modelos** (Models): Los modelos representan la estructura de los datos de la aplicación y gestionan la interacción con la base de datos MySQL. Están ubicados en el directorio models.
 
-# Contacto
-Si tienes preguntas o comentarios, no dudes en ponerte en contacto con el equipo de PFI-Front.
+- **Rutas** (Routes): Las rutas definen las URL y los métodos HTTP para acceder a las diversas funcionalidades del backend. Están ubicadas en el directorio routes.
 
-¡Gracias por usar PFI-Front!
+- **Base de Datos** (MySQL): La aplicación utiliza MySQL como base de datos para almacenar y recuperar información, incluyendo datos de usuarios, servidores, canales y mensajes. La configuración de la base de datos se encuentra en config.py
 
- Este archivo "README.md" proporciona información sobre el proyecto "PFI-Front," incluyendo características, requisitos, instrucciones de instalación, uso y licencia,así como información de contacto.
+# Developers
 
+German Aguirre
+Daniela Farfan
+Mariana Loyola
+Fabricio Garcia

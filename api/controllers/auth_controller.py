@@ -34,7 +34,6 @@ class UserController:
         else:
             user = User.get(User(nombre_usuario = username))
             # return user.serialize(), 200
-            print(user.serialize())
             return user.serialize(), 200
     
     @classmethod
