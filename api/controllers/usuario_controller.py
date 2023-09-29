@@ -1,5 +1,7 @@
 from flask import request, jsonify
 from ..models.usuario_models import Usuario
+from ..models.servidor_models import Servidor
+
 
 class UsuarioController:
     @classmethod
@@ -53,15 +55,12 @@ class UsuarioController:
             return jsonify({"message": "Usuario no encontrado"}), 404
         
 
-    ######################
     @classmethod
     def get_servidores(cls, usuario_id):
         """Obtiene los servidores asociados a un usuario y los devuelve como JSON."""
-        usuario=Usuario(usuario_id=usuario_id)
-        servidores = []
-        for servidor in Usuario.get_servidores(usuario_id):
-            print(servidor)
-            servidores.append(servidor.serialize())
+        usuario = Usuario.obtener_por_id(usuario_id)
+        servidores = Usuario.get_servidores(usuario)
         return servidores, 200
+
     
 

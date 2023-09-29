@@ -9,5 +9,4 @@ bp_servidores.route("/", methods = ["POST"])(ServidorController.crear_nuevo)
 
 
 ############
-bp_servidores.route("<string:nombre_usuario>", methods=["GET"])(ServidorController.obtener_servidores_por_usuario)
 

@@ -39,15 +39,3 @@ class ServidorController:
         return jsonify(canales), 200
     
 
-
-    @classmethod
-    def obtener_servidores_por_usuario(self, nombre_usuario):
-        """Obtiene los servidores asociados a un usuario y los devuelve como JSON."""
-        # nombre_usuario = Usuario(nombre_usuario=nombre_usuario)
-        resultado = Servidor.obtener_servidor_por_usuario(nombre_usuario=nombre_usuario)
-        servidores = []
-        if len(resultado) > 0:
-            for servidor in resultado:
-                servidores.append(servidor.serialize())
-            return servidores, 200        
-    

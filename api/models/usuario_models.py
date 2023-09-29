@@ -77,7 +77,6 @@ class Usuario:
         DatabaseConnection.execute_query(query, params)
 
 
-###############################
     @classmethod
     def get_servidores(cls, usuario):
         query = """
@@ -87,12 +86,12 @@ class Usuario:
             INNER JOIN usuarios ON usuario_servidor.usuario_id = usuarios.usuario_id
             WHERE usuarios.usuario_id = %(usuario_id)s;
             """
-        params = Usuario.__dict__
+        params = {"usuario_id" : usuario.usuario_id }
         results = DatabaseConnection.fetch_all(query, params)
-        
         servidores = []
-        from .servidor_models import Servidor
-
         for row in results:
-            servidores.append(Servidor(**dict(zip(Servidor._keys, row))))
+            # Crear un diccionario en lugar de un objeto Servidor
+            servidor = {"nombre_servidor": row[0]}
+            servidores.append(servidor)
+
         return servidores
