@@ -1,6 +1,8 @@
 from ...database import DatabaseConnection
 from .user_role_model import UserRoleModel
 from .user_status_model import UserStatusModel
+from PIL import Image
+from io import BytesIO
 
 class User:
 
@@ -9,6 +11,7 @@ class User:
         self.nombre_usuario = kwargs.get('nombre_usuario')
         self.contrasenia = kwargs.get('contrasenia')
         self.imagen = kwargs.get('imagen')
+        #self.imagen = Image.open(BytesIO('imagen'))
         self.status_id = kwargs.get('status_id')
         self.role_id = kwargs.get('role_id')
     
@@ -27,6 +30,7 @@ class User:
         query = """SELECT usuario_id FROM usuarios 
         WHERE nombre_usuario = %(nombre_usuario)s and contrasenia = %(contrasenia)s"""
         params = user.__dict__
+        print("-------------------------------------",query, "      ", params, "-------------------------------------")
         result = DatabaseConnection.fetch_one(query, params=params)
         if result is not None:
             return True

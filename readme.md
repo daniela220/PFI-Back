@@ -24,3 +24,11 @@ La aplicación está diseñada utilizando el framework Flask de Python. Sigue el
 - **Rutas** (Routes): Las rutas definen las URL y los métodos HTTP para acceder a las diversas funcionalidades del backend. Están ubicadas en el directorio routes.
 
 - **Base de Datos** (MySQL): La aplicación utiliza MySQL como base de datos para almacenar y recuperar información, incluyendo datos de usuarios, servidores, canales y mensajes. La configuración de la base de datos se encuentra en config.py
+
+
+# Developers
+
+German Aguirre
+Daniela Farfan
+Mariana Loyola
+Fabricio Garcia

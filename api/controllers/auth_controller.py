@@ -34,7 +34,7 @@ class UserController:
         else:
             user = User.get(User(nombre_usuario = username))
             # return user.serialize(), 200
-            return user, 200
+            return user.serialize(), 200
     
     @classmethod
     def logout(cls):

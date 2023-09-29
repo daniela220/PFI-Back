@@ -39,14 +39,14 @@ class Usuario:
     @classmethod
     def obtener_todos(cls):
         query = (
-            """SELECT usuario_id, nombre_usuario, contrasenia, imagen FROM usuarios"""
+            """SELECT * FROM usuarios"""
         )
         results = DatabaseConnection.fetch_all(query)
-        usuarios = []
-        for row in results:
-            usuarios.append(cls(*row))
-        return usuarios
-
+        # usuarios = []
+        # for row in results:
+        #     usuarios.append(cls(*row))
+        # return usuarios
+        return results
     @classmethod
     def actualizar_usuario(cls, usuario):
         query = "UPDATE tif_db.usuarios SET"
